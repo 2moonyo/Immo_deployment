@@ -15,6 +15,13 @@ from scipy.stats import linregress
 import seaborn as sns
 import os
 import time
+import streamlit as st
+
+class Streamlit():
+    def __init__():
+
+
+    
 
 
 class Preprocessing:
@@ -152,6 +159,18 @@ class FeatureEngineering:
         iqr = q3 - q1
         df = df[(df["price"] >= q1 - 1.5 * iqr) & (df["price"] <= q3 + 1.5 * iqr)]
         return df
+    #export cleaned/edited dataframe
+    
+    @staticmethod
+    def export_dataframe(df, filename="model_property_data.csv"):
+        try:
+            df.to_csv(filename, index=False)
+            print(f"DataFrame successfully exported to {filename}")
+        except Exception as e:
+            print(f"An error occurred while exporting the DataFrame: {e}")
+        if df is None or df.empty:
+            raise ValueError("The DataFrame is None or empty.")
+
 
 
 class ModelApply:
@@ -201,7 +220,7 @@ class ModelApply:
             model.fit(X_train, y_train, eval_set=(X_test, y_test), early_stopping_rounds=50)
             feature_importances.append(model.get_feature_importance())
             model.save_model("catboost_model.cbm")
-
+            print("Model saved as: catboost_model.cbm")
         return model, X_train, X_test, y_train, y_test, feature_importances
 
 
@@ -346,9 +365,6 @@ class ModelEvaluation:
         """
         Plot training and validation loss across iterations
         
-        Args:
-            model (CatBoostRegressor): Trained CatBoost model
-            output_dir (str): Directory to save the plot
         """
         # Ensure output directory exists
         os.makedirs(output_dir, exist_ok=True)
@@ -481,7 +497,8 @@ def main():
     feature_engineering = FeatureEngineering()
     property_data = feature_engineering.add_region_column(property_data)
     property_data = feature_engineering.remove_outliers_iqr(property_data)
-
+    property_data = feature_engineering.export_dataframe(property_data)
+    print("ran df to csv")
     # Model Training
     training_start_time = time.time()
     print("Model training started...")
