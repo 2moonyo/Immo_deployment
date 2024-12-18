@@ -16,7 +16,8 @@ model.load_model(MODEL_PATH)
 # Load the dataset
 @st.cache_data
 def load_data():
-    data = pd.read_csv("/Users/irisvirus/Desktop/Becode/Python/Projects/Deployment/Immo_deployment/utils/exports/properties_data_cleaned_20241218_011836.csv")  
+    DATA_PATH = os.path.join(os.path.dirname(__file__), 'data', 'properties_data_cleaned.csv')
+    data = pd.read_csv(DATA_PATH)
     data = data.dropna(subset=['latitude', 'longitude'])
     data = data.dropna(subset=['latitude', 'longitude'])
     return data
