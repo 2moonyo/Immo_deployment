@@ -5,9 +5,11 @@ from catboost import CatBoostRegressor, Pool
 import streamlit as st
 import pandas as pd
 import numpy as np
+import os
 
 # Load the trained model
-MODEL_PATH = "/Users/irisvirus/Desktop/Becode/Python/Projects/Deployment/Immo_deployment/catboost_model_6.0.cbm"
+MODEL_PATH = os.path.join(os.path.dirname(__file__), 'model', 'catboost_model_6.0.cbm')
+
 model = CatBoostRegressor()
 model.load_model(MODEL_PATH)
 
