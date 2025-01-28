@@ -1,6 +1,7 @@
 # Belgian Real Estate Price Predictor
 
 A machine learning web application that predicts real estate prices in Belgium using CatBoost regression model. The application features an interactive map interface and provides detailed property analysis based on location and property characteristics.
+**link**: https://2moonyo-immo-deployment-deploy-main-ao2emb.streamlit.app/
 
 ## Overview
 
